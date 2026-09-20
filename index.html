@@ -58,10 +58,10 @@
                 <input type="hidden" id="totalValue" name="total_bayar" value="0">
             </div>
 
-            <!-- Upload Bukti Bayar -->
-            <div class="form-group">
-                <label for="buktiBayar">Upload Bukti Bayar</label>
-                <input type="file" id="buktiBayar" name="buktiBayar" accept="image/*,application/pdf" required>
+            <!-- Upload Bukti Bayar (Kondisional: Diatur Dinamis via JS) -->
+            <div class="form-group" id="buktiBayarGroup">
+                <label for="buktiBayar" id="buktiBayarLabel">Upload Bukti Bayar <span style="color:red">*</span></label>
+                <input type="file" id="buktiBayar" name="buktiBayar" accept="image/*,application/pdf">
             </div>
 
             <button type="submit" class="btn-submit">Daftar & Dapatkan Akses</button>
