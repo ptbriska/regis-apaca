@@ -1,3 +1,4 @@
+// URL Web App Google Apps Script (GAS) APACA Consulting
 const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhJ29sqa5M92O6Xfh1UOo1W7TfKh8BiM2BEnaGtgCPMG4OcBLX7C1rGCTrVtn4au6_/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -23,13 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             renderCheckboxes(data.single_modules, "singleModulesContainer");
             renderCheckboxes(data.bundling_modules, "bundlingModulesContainer");
-            calculateTotal();
+            calculateTotal(); // Inisialisasi awal
         })
         .catch(err => {
             console.error("Gagal memuat katalog data.json:", err);
             alert("Gagal memuat katalog produk. Pastikan file data.json tersedia.");
         });
 
+    // Fungsi Render Checkbox & Atribut Data
     function renderCheckboxes(items, containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -38,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const label = document.createElement("label");
             label.className = "checkbox-item";
             
-            const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0});
+            const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 });
             const formattedPrice = (item.harga === 0) ? "Gratis" : formatter.format(item.harga);
             const kodeTesString = Array.isArray(item.kode_tes) ? item.kode_tes.join(",") : item.id;
 
@@ -66,11 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalBayar = parseInt(document.getElementById("totalValue").value) || 0;
         const fileInput = document.getElementById("buktiBayar");
 
+        // Validasi Bukti Bayar khusus jika Total Bayar > 0
         if (totalBayar > 0 && (!fileInput.files || fileInput.files.length === 0)) {
             alert("Silakan upload bukti pembayaran terlebih dahulu.");
             return;
         }
 
+        // Rekap semua kode_tes ke modul_diizinkan (Gunakan Set agar bebas duplikat)
         const modulDiizinkanSet = new Set();
         const produkDipilih = [];
 
@@ -85,44 +89,41 @@ document.addEventListener("DOMContentLoaded", () => {
         const modulDiizinkanString = Array.from(modulDiizinkanSet).join(", ");
 
         // Pengolahan File Bukti Bayar ke Base64 (Hanya jika berbayar)
-let fileData = null;
-if (totalBayar > 0 && fileInput.files && fileInput.files.length > 0) {
-    const file = fileInput.files[0];
+        let fileData = null;
+        if (totalBayar > 0 && fileInput.files && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
 
-    // Batasi ukuran maksimal 5 MB
-    if (file.size > 5 * 1024 * 1024) {
-        alert("Ukuran berkas terlalu besar! Maksimal ukuran berkas bukti bayar adalah 5 MB.");
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Daftar & Dapatkan Akses";
-        return;
-    }
+            // Batasi ukuran maksimal 5 MB
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Ukuran berkas terlalu besar! Maksimal ukuran berkas bukti bayar adalah 5 MB.");
+                return;
+            }
 
-    try {
-        fileData = await convertFileToBase64(file);
-    } catch (error) {
-        alert("Gagal memproses berkas bukti bayar.");
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Daftar & Dapatkan Akses";
-        return;
-    }
-}
+            try {
+                fileData = await convertFileToBase64(file);
+            } catch (error) {
+                alert("Gagal memproses berkas bukti bayar.");
+                return;
+            }
+        }
 
-// Susun Payload Lengkap
-const payload = {
-    nama: document.getElementById("nama").value,
-    email: document.getElementById("email").value,
-    whatsapp: document.getElementById("whatsapp").value,
-    jenis_kelamin: document.getElementById("jenisKelamin").value,
-    usia: document.getElementById("usia").value,
-    instansi: document.getElementById("instansi").value,
-    lokasi: document.getElementById("lokasi").value,
-    tujuan_tes: document.getElementById("tujuanTes").value,
-    produk_dipilih: produkDipilih.join(", "),
-    modul_diizinkan: modulDiizinkanString,
-    total_bayar: totalBayar,
-    bukti_bayar: fileData // Dikirim sebagai objek { fileName, mimeType, base64 } atau null
-};
+        // Susun Payload Lengkap
+        const payload = {
+            nama: document.getElementById("nama").value,
+            email: document.getElementById("email").value,
+            whatsapp: document.getElementById("whatsapp").value,
+            jenis_kelamin: document.getElementById("jenisKelamin").value,
+            usia: document.getElementById("usia").value,
+            instansi: document.getElementById("instansi").value,
+            lokasi: document.getElementById("lokasi").value,
+            tujuan_tes: document.getElementById("tujuanTes").value,
+            produk_dipilih: produkDipilih.join(", "),
+            modul_diizinkan: modulDiizinkanString,
+            total_bayar: totalBayar,
+            bukti_bayar: fileData
+        };
 
+        // Indikator Loading
         submitBtn.disabled = true;
         submitBtn.innerText = "Memproses Pendaftaran...";
 
@@ -156,13 +157,14 @@ const payload = {
         })
         .catch(err => {
             console.error("Error submit form:", err);
-            alert("Gagal terhubung ke server. Pastikan GAS Web App URL sudah benar.");
+            alert("Gagal terhubung ke server. Pastikan GAS Web App URL sudah benar dan di-deploy ke 'Anyone'.");
             submitBtn.disabled = false;
             submitBtn.innerText = "Daftar & Dapatkan Akses";
         });
     });
 });
 
+// Helper Function: Konversi File ke Base64
 function convertFileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -172,6 +174,7 @@ function convertFileToBase64(file) {
     });
 }
 
+// Fungsi Kalkulasi Total Harga Otomatis & Atur Akses File
 function calculateTotal() {
     const checkboxes = document.querySelectorAll('input[name="produk[]"]:checked');
     let total = 0;
