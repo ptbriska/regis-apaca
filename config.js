@@ -1,4 +1,4 @@
-const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_GANTI_DENGAN_DEPLOYMENT_ID_ANDA/exec";
+const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhJ29sqa5M92O6Xfh1UOo1W7TfKh8BiM2BEnaGtgCPMG4OcBLX7C1rGCTrVtn4au6_/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
     const totalDisplay = document.getElementById("totalDisplay");
