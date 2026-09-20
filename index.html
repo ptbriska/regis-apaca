@@ -14,26 +14,57 @@
         </div>
 
         <form id="registrationForm">
-            <!-- Data Diri -->
+            <!-- Data Diri Utama -->
             <div class="form-group">
-                <label for="nama">Nama Lengkap</label>
+                <label for="nama">Nama Lengkap <span style="color:red">*</span></label>
                 <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap...">
-            </div>
-
-            <div class="form-group">
-                <label for="lokasi">Asal Daerah (Terdeteksi Otomatis)</label>
-                <input type="text" id="lokasi" name="lokasi" readonly placeholder="Mendeteksi lokasi...">
             </div>
 
             <div class="form-group row">
                 <div class="col">
-                    <label for="usia">Usia Pendaftar</label>
-                    <input type="number" id="usia" name="usia" required placeholder="Contoh: 18">
+                    <label for="email">Alamat Email (Aktif) <span style="color:red">*</span></label>
+                    <input type="email" id="email" name="email" required placeholder="contoh: nama@gmail.com">
                 </div>
                 <div class="col">
-                    <label for="instansi">Asal Instansi</label>
+                    <label for="whatsapp">Nomor WhatsApp <span style="color:red">*</span></label>
+                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Contoh: 081234567890">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="jenisKelamin">Jenis Kelamin <span style="color:red">*</span></label>
+                    <select id="jenisKelamin" name="jenisKelamin" required class="form-control">
+                        <option value="">-- Pilih --</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="usia">Usia Pendaftar <span style="color:red">*</span></label>
+                    <input type="number" id="usia" name="usia" required placeholder="Contoh: 18">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="instansi">Asal Instansi <span style="color:red">*</span></label>
                     <input type="text" id="instansi" name="instansi" required placeholder="Sekolah / Kampus / Kerja">
                 </div>
+                <div class="col">
+                    <label for="lokasi">Asal Daerah (Terdeteksi Otomatis)</label>
+                    <input type="text" id="lokasi" name="lokasi" readonly placeholder="Mendeteksi lokasi...">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="tujuanTes">Tujuan Mengikuti Tes</label>
+                <select id="tujuanTes" name="tujuanTes" class="form-control">
+                    <option value="Pengembangan Diri">Pengembangan Diri / Evaluasi Mandiri</option>
+                    <option value="Persyaratan Sekolah/Kampus">Persyaratan Masuk Sekolah / Kampus</option>
+                    <option value="Persiapan Karir/Rekrutmen">Persiapan Karir / Seleksi Kerja</option>
+                    <option value="Rekomendasi Konseling">Pendampingan Konseling / Counseling</option>
+                </select>
             </div>
 
             <!-- Pemilihan Modul -->
@@ -66,6 +97,27 @@
 
             <button type="submit" class="btn-submit">Daftar & Dapatkan Akses</button>
         </form>
+
+        <!-- Pop-Up Modal Konfirmasi Instan -->
+        <div id="confirmationModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Pendaftaran Berhasil! 🎉</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Terima kasih telah melakukan pendaftaran. Berikut adalah Kode Akses Anda:</p>
+                    <div class="access-key-box">
+                        <span id="modalAccessKey">PATS-XXXX-XXXX</span>
+                        <button type="button" id="copyKeyBtn" onclick="copyAccessKey()">📋 Salin Kode</button>
+                    </div>
+                    <p><strong>Modul Diizinkan:</strong> <br><span id="modalModulList">-</span></p>
+                    <p class="email-note">💡 Salinan Kode Akses dan instruksi ujian juga telah dikirimkan ke email Anda.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-close" onclick="closeModal()">Tutup Halaman</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="config.js"></script>
