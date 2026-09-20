@@ -1,5 +1,5 @@
 // Ganti URL ini dengan URL Web App dari Google Apps Script (GAS) milik Anda
-const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhJ29sqa5M92O6Xfh1UOo1W7TfKh8BiM2BEnaGtgCPMG4OcBLX7C1rGCTrVtn4au6_/exec";
+const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_GANTI_DENGAN_DEPLOYMENT_ID_ANDA/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
     const totalDisplay = document.getElementById("totalDisplay");
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             renderCheckboxes(data.single_modules, "singleModulesContainer");
             renderCheckboxes(data.bundling_modules, "bundlingModulesContainer");
+            calculateTotal(); // Inisialisasi awal
         })
         .catch(err => {
             console.error("Gagal memuat katalog data.json:", err);
@@ -40,9 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
             label.className = "checkbox-item";
             
             const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0});
-            const formattedPrice = (item.harga === 0) ? "Gratis / Custom" : formatter.format(item.harga);
+            const formattedPrice = (item.harga === 0) ? "Gratis" : formatter.format(item.harga);
 
-            // Gabungkan array kode_tes menjadi string terpisah koma
             const kodeTesString = Array.isArray(item.kode_tes) ? item.kode_tes.join(",") : item.id;
 
             label.innerHTML = `
@@ -60,10 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("registrationForm").addEventListener("submit", async function(e) {
         e.preventDefault();
 
-        // Validasi minimal 1 produk dipilih
         const checkboxes = document.querySelectorAll('input[name="produk[]"]:checked');
         if (checkboxes.length === 0) {
             alert("Silakan pilih minimal 1 modul tes atau bundling.");
+            return;
+        }
+
+        const totalBayar = parseInt(document.getElementById("totalValue").value) || 0;
+        const fileInput = document.getElementById("buktiBayar");
+
+        // Validasi Bukti Bayar khusus jika Total Bayar > 0
+        if (totalBayar > 0 && (!fileInput.files || fileInput.files.length === 0)) {
+            alert("Silakan upload bukti pembayaran terlebih dahulu.");
             return;
         }
 
@@ -81,11 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const modulDiizinkanString = Array.from(modulDiizinkanSet).join(", ");
 
-        // Pengolahan File Bukti Bayar ke Base64
-        const fileInput = document.getElementById("buktiBayar");
+        // Pengolahan File Bukti Bayar ke Base64 (Hanya jika ada file)
         let fileData = null;
-
-        if (fileInput.files.length > 0) {
+        if (totalBayar > 0 && fileInput.files.length > 0) {
             const file = fileInput.files[0];
             try {
                 fileData = await convertFileToBase64(file);
@@ -95,16 +101,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Susun Payload Lengkap sesuai Seluruh Pertanyaan Form
+        // Susun Payload Lengkap
         const payload = {
             nama: document.getElementById("nama").value,
             lokasi: document.getElementById("lokasi").value,
             usia: document.getElementById("usia").value,
             instansi: document.getElementById("instansi").value,
             produk_dipilih: produkDipilih.join(", "),
-            modul_diizinkan: modulDiizinkanString, // WAJIB: Rekap kode tes (Misal: KS1, KS2, KS6)
-            total_bayar: document.getElementById("totalValue").value,
-            bukti_bayar: fileData // { fileName, mimeType, base64 }
+            modul_diizinkan: modulDiizinkanString,
+            total_bayar: totalBayar,
+            bukti_bayar: fileData
         };
 
         // Indikator Loading
@@ -123,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     `Pendaftaran Berhasil!\n\n` +
                     `Kode Akses Anda: ${response.access_key}\n` +
                     `Modul Diizinkan: [ ${response.modul_diizinkan} ]\n\n` +
-                    `Kode akses dan instruksi telah dikirimkan ke sistem.`
+                    `Kode akses telah diterbitkan.`
                 );
                 document.getElementById("registrationForm").reset();
                 calculateTotal();
@@ -133,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(err => {
             console.error("Error submit form:", err);
-            alert("Gagal terhubung ke server. Pastikan GAS Web App URL sudah disetting dengan benar.");
+            alert("Gagal terhubung ke server. Pastikan GAS Web App URL sudah benar.");
         })
         .finally(() => {
             submitBtn.disabled = false;
@@ -159,7 +165,7 @@ function convertFileToBase64(file) {
     });
 }
 
-// Fungsi Kalkulasi Total Harga Otomatis
+// Fungsi Kalkulasi Total Harga Otomatis & Atur Akses File
 function calculateTotal() {
     const checkboxes = document.querySelectorAll('input[name="produk[]"]:checked');
     let total = 0;
@@ -171,4 +177,21 @@ function calculateTotal() {
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 });
     document.getElementById("totalDisplay").innerText = formatter.format(total);
     document.getElementById("totalValue").value = total;
+
+    // Logika Otomatisasi Bukti Bayar
+    const buktiBayarGroup = document.getElementById("buktiBayarGroup");
+    const buktiBayarInput = document.getElementById("buktiBayar");
+    const buktiBayarLabel = document.getElementById("buktiBayarLabel");
+
+    if (total === 0) {
+        // Jika Gratis (0 Rupiah): Hilangkan kewajiban & sembunyikan bidang upload
+        buktiBayarInput.removeAttribute("required");
+        buktiBayarInput.value = ""; // Clear file jika ada
+        if (buktiBayarGroup) buktiBayarGroup.style.display = "none";
+    } else {
+        // Jika Berbayar (> 0 Rupiah): Wajibkan upload & tampilkan bidang upload
+        buktiBayarInput.setAttribute("required", "required");
+        if (buktiBayarGroup) buktiBayarGroup.style.display = "block";
+        if (buktiBayarLabel) buktiBayarLabel.innerHTML = 'Upload Bukti Bayar <span style="color:red">*</span>';
+    }
 }
