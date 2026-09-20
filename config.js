@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Rekap semua kode_tes ke modul_diizinkan (Gunakan Set agar bebas duplikat)
+        // Rekap semua kode_tes ke modul_diizinkan (Set untuk mengeliminasi duplikat)
         const modulDiizinkanSet = new Set();
         const produkDipilih = [];
 
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const modulDiizinkanString = Array.from(modulDiizinkanSet).join(", ");
 
-        // Pengolahan File Bukti Bayar ke Base64 (Hanya jika ada file)
+        // Pengolahan File Bukti Bayar ke Base64 (Hanya jika berbayar)
         let fileData = null;
         if (totalBayar > 0 && fileInput.files.length > 0) {
             const file = fileInput.files[0];
@@ -104,9 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Susun Payload Lengkap
         const payload = {
             nama: document.getElementById("nama").value,
-            lokasi: document.getElementById("lokasi").value,
+            email: document.getElementById("email").value,
+            whatsapp: document.getElementById("whatsapp").value,
+            jenis_kelamin: document.getElementById("jenisKelamin").value,
             usia: document.getElementById("usia").value,
             instansi: document.getElementById("instansi").value,
+            lokasi: document.getElementById("lokasi").value,
+            tujuan_tes: document.getElementById("tujuanTes").value,
             produk_dipilih: produkDipilih.join(", "),
             modul_diizinkan: modulDiizinkanString,
             total_bayar: totalBayar,
@@ -125,12 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(response => {
             if (response.status === "success") {
-                alert(
-                    `Pendaftaran Berhasil!\n\n` +
-                    `Kode Akses Anda: ${response.access_key}\n` +
-                    `Modul Diizinkan: [ ${response.modul_diizinkan} ]\n\n` +
-                    `Kode akses telah diterbitkan.`
-                );
+                // Tampilkan Modal Pop-Up Konfirmasi Instan
+                document.getElementById("modalAccessKey").innerText = response.access_key;
+                document.getElementById("modalModulList").innerText = response.modul_diizinkan;
+                document.getElementById("confirmationModal").style.display = "flex";
+
+                // Reset Form
                 document.getElementById("registrationForm").reset();
                 calculateTotal();
             } else {
@@ -165,7 +169,7 @@ function convertFileToBase64(file) {
     });
 }
 
-// Fungsi Kalkulasi Total Harga Otomatis & Atur Akses File
+// Fungsi Kalkulasi Total Harga Otomatis & Kontrol Upload File Dinamis
 function calculateTotal() {
     const checkboxes = document.querySelectorAll('input[name="produk[]"]:checked');
     let total = 0;
@@ -184,14 +188,26 @@ function calculateTotal() {
     const buktiBayarLabel = document.getElementById("buktiBayarLabel");
 
     if (total === 0) {
-        // Jika Gratis (0 Rupiah): Hilangkan kewajiban & sembunyikan bidang upload
+        // Jika Gratis (0 Rupiah)
         buktiBayarInput.removeAttribute("required");
-        buktiBayarInput.value = ""; // Clear file jika ada
+        buktiBayarInput.value = "";
         if (buktiBayarGroup) buktiBayarGroup.style.display = "none";
     } else {
-        // Jika Berbayar (> 0 Rupiah): Wajibkan upload & tampilkan bidang upload
+        // Jika Berbayar (> 0 Rupiah)
         buktiBayarInput.setAttribute("required", "required");
         if (buktiBayarGroup) buktiBayarGroup.style.display = "block";
         if (buktiBayarLabel) buktiBayarLabel.innerHTML = 'Upload Bukti Bayar <span style="color:red">*</span>';
     }
+}
+
+// Fungsi Modal Pop-Up Konfirmasi
+function closeModal() {
+    document.getElementById("confirmationModal").style.display = "none";
+}
+
+function copyAccessKey() {
+    const keyText = document.getElementById("modalAccessKey").innerText;
+    navigator.clipboard.writeText(keyText).then(() => {
+        alert("Kode Akses berhasil disalin ke clipboard!");
+    });
 }
