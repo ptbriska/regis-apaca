@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran PATS - APACA Consulting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Selamat datang di portal pendaftaran Psikometric & Aptittude Test System APACA Consulting</h2>
+            <p>Silakan lengkapi data diri dan pilih modul tes yang Anda butuhkan.</p>
+        </div>
+
+        <form id="registrationForm">
+            <!-- Data Diri -->
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap...">
+            </div>
+
+            <div class="form-group">
+                <label for="lokasi">Asal Daerah (Terdeteksi Otomatis)</label>
+                <input type="text" id="lokasi" name="lokasi" readonly placeholder="Mendeteksi lokasi...">
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="usia">Usia Pendaftar</label>
+                    <input type="number" id="usia" name="usia" required placeholder="Contoh: 18">
+                </div>
+                <div class="col">
+                    <label for="instansi">Asal Instansi</label>
+                    <input type="text" id="instansi" name="instansi" required placeholder="Sekolah / Kampus / Kerja">
+                </div>
+            </div>
+
+            <!-- Pemilihan Modul -->
+            <div class="form-group">
+                <label>Pilih Single Module (Pilar 1, 2, & 3)</label>
+                <div class="checkbox-group" id="singleModulesContainer">
+                    <!-- Checkbox di-generate oleh JS -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pilih Bundling / Massal Institusi</label>
+                <div class="checkbox-group" id="bundlingModulesContainer">
+                    <!-- Checkbox di-generate oleh JS -->
+                </div>
+            </div>
+
+            <!-- Total Harga -->
+            <div class="total-box">
+                <h3>Total yang harus dibayar:</h3>
+                <h2 id="totalDisplay">Rp 0</h2>
+                <input type="hidden" id="totalValue" name="total_bayar" value="0">
+            </div>
+
+            <!-- Upload Bukti Bayar -->
+            <div class="form-group">
+                <label for="buktiBayar">Upload Bukti Bayar</label>
+                <input type="file" id="buktiBayar" name="buktiBayar" accept="image/*,application/pdf" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Daftar & Dapatkan Akses</button>
+        </form>
+    </div>
+
+    <script src="config.js"></script>
+</body>
+</html>
