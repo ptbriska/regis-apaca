@@ -1,0 +1,65 @@
+* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body {
+    background: linear-gradient(135deg, #ff4d4d 0%, #8b0000 100%);
+    margin: 0; padding: 20px;
+    display: flex; justify-content: center;
+    color: #333; min-height: 100vh;
+}
+.container {
+    background: #ffffff;
+    width: 100%; max-width: 700px;
+    padding: 30px; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.header {
+    text-align: center; margin-bottom: 25px;
+    padding-bottom: 15px; border-bottom: 2px solid #eee;
+}
+.header h2 { color: #b30000; font-size: 1.4rem; margin-top: 0; }
+.header p { color: #666; font-size: 0.95rem; }
+.form-group { margin-bottom: 20px; }
+.row { display: flex; gap: 15px; }
+.col { flex: 1; }
+label { display: block; font-weight: 600; margin-bottom: 8px; color: #444; }
+input[type="text"], input[type="number"], input[type="file"] {
+    width: 100%; padding: 12px;
+    border: 1px solid #ccc; border-radius: 6px;
+    font-size: 1rem; transition: border 0.3s;
+}
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: #ff4d4d; outline: none;
+}
+input[readonly] { background: #f9f9f9; color: #888; }
+.checkbox-group {
+    background: #fdfdfd; border: 1px solid #e0e0e0;
+    border-radius: 6px; padding: 15px;
+    max-height: 250px; overflow-y: auto;
+}
+.checkbox-item {
+    display: flex; justify-content: space-between;
+    margin-bottom: 10px; cursor: pointer;
+    align-items: center; border-bottom: 1px dashed #eee;
+    padding-bottom: 8px;
+}
+.checkbox-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.checkbox-item input { margin-right: 10px; transform: scale(1.2); cursor: pointer; }
+.item-price { font-weight: bold; color: #b30000; }
+.total-box {
+    background: #fff0f0; border-left: 5px solid #b30000;
+    padding: 20px; border-radius: 6px;
+    text-align: right; margin-bottom: 25px;
+}
+.total-box h3 { margin: 0; font-size: 1.1rem; color: #555; }
+.total-box h2 { margin: 5px 0 0; color: #b30000; font-size: 2rem; }
+.btn-submit {
+    width: 100%; padding: 15px;
+    background: linear-gradient(135deg, #b30000 0%, #ff4d4d 100%);
+    color: #fff; font-size: 1.1rem;
+    font-weight: bold; border: none;
+    border-radius: 6px; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(179,0,0,0.4);
+}
