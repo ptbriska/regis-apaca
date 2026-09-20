@@ -1,0 +1,17 @@
+{
+  "single_modules": [
+    {"id": "KA1", "kategori": "Pilar 1", "nama": "Asesmen Kesiapan Masuk SD (KA1)", "harga": 200000},
+    {"id": "KS2", "kategori": "Pilar 1", "nama": "Asesmen Potensi Komprehensif (KS2)", "harga": 250000},
+    {"id": "KS6", "kategori": "Pilar 1", "nama": "Pemetaan 8 Kecerdasan Majemuk (KS6)", "harga": 75000},
+    {"id": "KU4", "kategori": "Pilar 1", "nama": "Pemetaan Kepribadian MBTI (KU4)", "harga": 0},
+    {"id": "ADV-1", "kategori": "Pilar 2", "nama": "Bedah Rapor PATS 1-on-1 (ADV-1)", "harga": 100000},
+    {"id": "ADV-2", "kategori": "Pilar 2", "nama": "Private Career Coaching (ADV-2)", "harga": 250000},
+    {"id": "CRT-1", "kategori": "Pilar 3", "nama": "Tes Psikologi Resmi HIMPSI (CRT-1)", "harga": 250000}
+  ],
+  "bundling_modules": [
+    {"id": "BND-01", "kategori": "B2C", "nama": "Peta Belajar & Karir Masa Depan", "harga": 150000},
+    {"id": "BND-02", "kategori": "B2C", "nama": "Tumbuh Kembang & Harmoni Keluarga", "harga": 549000},
+    {"id": "BND-06", "kategori": "B2C", "nama": "Optimalisasi & Peretasan Cara Belajar", "harga": 499000},
+    {"id": "B2B-01", "kategori": "B2B", "nama": "Seleksi Talenta OSN (Min. 30 Pax)", "harga": 2250000}
+  ]
+}
