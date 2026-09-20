@@ -1,17 +1,72 @@
 {
   "single_modules": [
-    {"id": "KA1", "kategori": "Pilar 1", "nama": "Asesmen Kesiapan Masuk SD (KA1)", "harga": 200000},
-    {"id": "KS2", "kategori": "Pilar 1", "nama": "Asesmen Potensi Komprehensif (KS2)", "harga": 250000},
-    {"id": "KS6", "kategori": "Pilar 1", "nama": "Pemetaan 8 Kecerdasan Majemuk (KS6)", "harga": 75000},
-    {"id": "KU4", "kategori": "Pilar 1", "nama": "Pemetaan Kepribadian MBTI (KU4)", "harga": 0},
-    {"id": "ADV-1", "kategori": "Pilar 2", "nama": "Bedah Rapor PATS 1-on-1 (ADV-1)", "harga": 100000},
-    {"id": "ADV-2", "kategori": "Pilar 2", "nama": "Private Career Coaching (ADV-2)", "harga": 250000},
-    {"id": "CRT-1", "kategori": "Pilar 3", "nama": "Tes Psikologi Resmi HIMPSI (CRT-1)", "harga": 250000}
+    {"id": "KA1", "kategori": "Pilar 1 - Anak", "nama": "KA1 - Asesmen Psikologi Kesiapan Masuk SD", "harga": 200000, "kode_tes": ["KA1"]},
+    {"id": "KA2", "kategori": "Pilar 1 - Anak", "nama": "KA2 - Tes Psikologi IQ & Kecerdasan Anak", "harga": 250000, "kode_tes": ["KA2"]},
+    {"id": "KA3", "kategori": "Pilar 1 - Anak", "nama": "KA3 - Skrining Klinis & Hambatan Belajar", "harga": 200000, "kode_tes": ["KA3"]},
+    {"id": "KA4", "kategori": "Pilar 1 - Anak", "nama": "KA4 - Skrining Perkembangan Sensori & Motorik", "harga": 150000, "kode_tes": ["KA4"]},
+
+    {"id": "KS1", "kategori": "Pilar 1 - Sekolah", "nama": "KS1 - Pemetaan Minat & Bakat Potensial Analitis Bidang OSN", "harga": 120000, "kode_tes": ["KS1"]},
+    {"id": "KS2", "kategori": "Pilar 1 - Sekolah", "nama": "KS2 - Asesmen Potensi Komprehensif & Inteligensi", "harga": 250000, "kode_tes": ["KS2"]},
+    {"id": "KS3", "kategori": "Pilar 1 - Sekolah", "nama": "KS3 - Asesmen Keselarasan Jurusan Kuliah", "harga": 150000, "kode_tes": ["KS3"]},
+    {"id": "KS4", "kategori": "Pilar 1 - Sekolah", "nama": "KS4 - Indeks Kesiapan Studi Mandiri & Rantau", "harga": 90000, "kode_tes": ["KS4"]},
+    {"id": "KS5", "kategori": "Pilar 1 - Sekolah", "nama": "KS5 - Asesmen Modalitas Gaya Belajar (LSP)", "harga": 75000, "kode_tes": ["KS5"]},
+    {"id": "KS6", "kategori": "Pilar 1 - Sekolah", "nama": "KS6 - Pemetaan 8 Pola Kecerdasan Majemuk", "harga": 75000, "kode_tes": ["KS6"]},
+    {"id": "KS7", "kategori": "Pilar 1 - Sekolah", "nama": "KS7 - Pemetaan Bakat Analitis OSN", "harga": 0, "kode_tes": ["KS7"]},
+    {"id": "KS8", "kategori": "Pilar 1 - Sekolah", "nama": "KS8 - Tes Penalaran Kritis & Logika Analitis", "harga": 100000, "kode_tes": ["KS8"]},
+    {"id": "KS9", "kategori": "Pilar 1 - Sekolah", "nama": "KS9 - Asesmen Kesesuaian Metodologi & Struktur Pengajaran (LAM)", "harga": 75000, "kode_tes": ["KS9"]},
+    {"id": "KS10", "kategori": "Pilar 1 - Sekolah", "nama": "KS10 - Asesmen Efektivitas Teknik Belajar Taktis (LTE)", "harga": 75000, "kode_tes": ["KS10"]},
+    {"id": "KS11", "kategori": "Pilar 1 - Sekolah", "nama": "KS11 - Asesmen Kapasitas Self-Regulated Learning (LSI)", "harga": 75000, "kode_tes": ["KS11"]},
+    {"id": "KS12", "kategori": "Pilar 1 - Sekolah", "nama": "KS12 - Pemetaan Operasi Kognitif Saat Belajar (LCPI)", "harga": 75000, "kode_tes": ["KS12"]},
+    {"id": "KS13", "kategori": "Pilar 1 - Sekolah", "nama": "KS13 - Pemetaan 6 Tipe Motivasi, Efikasi Diri & Emosi Belajar (LAMP)", "harga": 75000, "kode_tes": ["KS13"]},
+    {"id": "KS14", "kategori": "Pilar 1 - Sekolah", "nama": "KS14 - Pemetaan Kondisi Lingkungan Belajar Optimal (LEI)", "harga": 75000, "kode_tes": ["KS14"]},
+    {"id": "KS15", "kategori": "Pilar 1 - Sekolah", "nama": "KS15 - Pemetaan Hirarki Preferensi Format Materi & Media (LRP)", "harga": 75000, "kode_tes": ["KS15"]},
+    {"id": "KS16", "kategori": "Pilar 1 - Sekolah", "nama": "KS16 - Survei Tingkat Kejenuhan & Stres Akademik", "harga": 75000, "kode_tes": ["KS16"]},
+
+    {"id": "KD1", "kategori": "Pilar 1 - Dewasa", "nama": "KD1 - Pemetaan Proyeksi Karir Masa Depan", "harga": 125000, "kode_tes": ["KD1"]},
+    {"id": "KD2", "kategori": "Pilar 1 - Dewasa", "nama": "KD2 - Inventori Nilai & Prinsip Kerja", "harga": 75000, "kode_tes": ["KD2"]},
+    {"id": "KD3", "kategori": "Pilar 1 - Dewasa", "nama": "KD3 - Asesmen Potensi Komprehensif & Inteligensi", "harga": 250000, "kode_tes": ["KD3"]},
+    {"id": "KD4", "kategori": "Pilar 1 - Dewasa", "nama": "KD4 - Asesmen Gaya Kepemimpinan di Korporat", "harga": 150000, "kode_tes": ["KD4"]},
+    {"id": "KD5", "kategori": "Pilar 1 - Dewasa", "nama": "KD5 - Tes Ketahanan & Ketelitian Kerja (Kraepelin/Pauli)", "harga": 75000, "kode_tes": ["KD5"]},
+    {"id": "KD6", "kategori": "Pilar 1 - Dewasa", "nama": "KD6 - Survei Tingkat Kejenuhan & Stres", "harga": 75000, "kode_tes": ["KD6"]},
+
+    {"id": "KU1", "kategori": "Pilar 1 - Umum", "nama": "KU1 - Asesmen Daya Juang & Pola Pikir", "harga": 75000, "kode_tes": ["KU1"]},
+    {"id": "KU2", "kategori": "Pilar 1 - Umum", "nama": "KU2 - Tes Integritas & Etika", "harga": 50000, "kode_tes": ["KU2"]},
+    {"id": "KU3", "kategori": "Pilar 1 - Umum", "nama": "KU3 - Asesmen Etika & Perilaku Digital", "harga": 50000, "kode_tes": ["KU3"]},
+    {"id": "KU4", "kategori": "Pilar 1 - Umum", "nama": "KU4 - Pemetaan Preferensi Tipe Kepribadian MBTI", "harga": 0, "kode_tes": ["KU4"]},
+    {"id": "KU5", "kategori": "Pilar 1 - Umum", "nama": "KU5 - Pemetaan Profil Perilaku & Gaya Komunikasi DISC", "harga": 25000, "kode_tes": ["KU5"]},
+    {"id": "KU6", "kategori": "Pilar 1 - Umum", "nama": "KU6 - Pemetaan 9 Tipe Kepribadian & Motivasi Dasar Enneagram", "harga": 25000, "kode_tes": ["KU6"]},
+    {"id": "KU7", "kategori": "Pilar 1 - Umum", "nama": "KU7 - Asesmen Lima Faktor Utama Trait Kepribadian (Big Five / OCEAN)", "harga": 25000, "kode_tes": ["KU7"]},
+    {"id": "KU8", "kategori": "Pilar 1 - Umum", "nama": "KU8 - Asesmen Kepemimpinan & Soft Skills", "harga": 100000, "kode_tes": ["KU8"]},
+    {"id": "KU9", "kategori": "Pilar 1 - Umum", "nama": "KU9 - Tes Pengambilan Keputusan", "harga": 125000, "kode_tes": ["KU9"]},
+
+    {"id": "KK1", "kategori": "Pilar 1 - Parenting", "nama": "KK1 - Inventori Gaya Mengajar Pendidik", "harga": 50000, "kode_tes": ["KK1"]},
+    {"id": "KK2", "kategori": "Pilar 1 - Parenting", "nama": "KK2 - Pemetaan Pola Asuh Orang Tua", "harga": 75000, "kode_tes": ["KK2"]},
+
+    {"id": "ADV-1", "kategori": "Pilar 2 - Advocacy", "nama": "ADV-1 - Bedah Rapor PATS (1-on-1)", "harga": 100000, "kode_tes": ["ADV-1"]},
+    {"id": "ADV-2", "kategori": "Pilar 2 - Advocacy", "nama": "ADV-2 - Private Career & Campus Coaching", "harga": 250000, "kode_tes": ["ADV-2"]},
+    {"id": "ADV-3", "kategori": "Pilar 2 - Advocacy", "nama": "ADV-3 - Parenting & Child Consultation", "harga": 300000, "kode_tes": ["ADV-3"]},
+    {"id": "ADV-4", "kategori": "Pilar 2 - Advocacy", "nama": "ADV-4 - Mental Health & Resilience Counseling", "harga": 250000, "kode_tes": ["ADV-4"]},
+    {"id": "ADV-5", "kategori": "Pilar 2 - Advocacy", "nama": "ADV-5 - Leadership & Professional Coaching", "harga": 350000, "kode_tes": ["ADV-5"]},
+
+    {"id": "CRT-1", "kategori": "Pilar 3 - Certification", "nama": "CRT-1 - Tes Psikologi Resmi (HIMPSI)", "harga": 250000, "kode_tes": ["CRT-1"]},
+    {"id": "CRT-2", "kategori": "Pilar 3 - Certification", "nama": "CRT-2 - Uji Kompetensi / Sertifikasi BNSP", "harga": 0, "kode_tes": ["CRT-2"]}
   ],
   "bundling_modules": [
-    {"id": "BND-01", "kategori": "B2C", "nama": "Peta Belajar & Karir Masa Depan", "harga": 150000},
-    {"id": "BND-02", "kategori": "B2C", "nama": "Tumbuh Kembang & Harmoni Keluarga", "harga": 549000},
-    {"id": "BND-06", "kategori": "B2C", "nama": "Optimalisasi & Peretasan Cara Belajar", "harga": 499000},
-    {"id": "B2B-01", "kategori": "B2B", "nama": "Seleksi Talenta OSN (Min. 30 Pax)", "harga": 2250000}
+    {"id": "BND-01", "kategori": "Bundling B2C", "nama": "BND-01 - Paket Peta Belajar & Karir Masa Depan", "harga": 150000, "kode_tes": ["KS3", "KD1", "KD2", "ADV-1"]},
+    {"id": "BND-02", "kategori": "Bundling B2C", "nama": "BND-02 - Paket Tumbuh Kembang & Harmoni Keluarga", "harga": 549000, "kode_tes": ["KA1", "KA2", "KK2", "ADV-3"]},
+    {"id": "BND-03", "kategori": "Bundling B2C", "nama": "BND-03 - Paket Kesiapan Mental & Daya Juang Remaja", "harga": 329000, "kode_tes": ["KS16", "KU1", "KS4", "ADV-4"]},
+    {"id": "BND-04", "kategori": "Bundling B2C", "nama": "BND-04 - Paket Deteksi Dini & Strategi Belajar Anak", "harga": 429000, "kode_tes": ["KA3", "KS5", "KU3", "ADV-3"]},
+    {"id": "BND-05", "kategori": "Bundling B2C", "nama": "BND-05 - Paket Calon Pemimpin & Student Leader (Base Tim 3 Orang)", "harga": 1300000, "kode_tes": ["KU8", "KS8", "KS2", "ADV-5"]},
+    {"id": "BND-06", "kategori": "Bundling B2C", "nama": "BND-06 - Paket Optimalisasi & Peretasan Cara Belajar", "harga": 499000, "kode_tes": ["KS5", "KS6", "KS9", "KS10", "KS11", "KS12", "KS13", "KS14", "KS15", "ADV-1"]},
+    {"id": "BND-07", "kategori": "Bundling B2C", "nama": "BND-07 - Paket Kesiapan Dunia Kerja & Rekrutmen (Ritel)", "harga": 449000, "kode_tes": ["KD3", "KD5", "KU2", "ADV-2"]},
+    {"id": "BND-08", "kategori": "Bundling B2C", "nama": "BND-08 - Paket Self-Discovery & Pemetaan Karakter Ekstensif", "harga": 125000, "kode_tes": ["KU4", "KU5", "KU6", "KU7", "ADV-1"]},
+    {"id": "BND-09", "kategori": "Bundling B2C", "nama": "BND-09 - Paket Pendidik Tangguh & Edukasi Efektif", "harga": 175000, "kode_tes": ["KK1", "KS9", "KD6", "ADV-1"]},
+    {"id": "BND-10", "kategori": "Bundling B2C", "nama": "BND-10 - Paket Olimpiade & Talenta Analitis Spesifik", "harga": 175000, "kode_tes": ["KS1", "KS7", "KS12", "ADV-1"]},
+
+    {"id": "B2B-01", "kategori": "Skema B2B", "nama": "B2B-01 - PATS Bulk - Seleksi Talenta OSN", "harga": 75000, "kode_tes": ["KS1", "KS7"]},
+    {"id": "B2B-02", "kategori": "Skema B2B", "nama": "B2B-02 - PATS Bulk - Ekstensif Learning Profile (8 Subtes)", "harga": 250000, "kode_tes": ["KS5", "KS9", "KS10", "KS11", "KS12", "KS13", "KS14", "KS15"]},
+    {"id": "B2B-03", "kategori": "Skema B2B", "nama": "B2B-03 - Paket Kompleks Ekosistem Sekolah", "harga": 175000, "kode_tes": ["KS2", "KK1", "KK2"]},
+    {"id": "B2B-04", "kategori": "Skema B2B", "nama": "B2B-04 - Paket Seleksi & Rekrutmen Korporat", "harga": 150000, "kode_tes": ["KD3", "KD4", "KD5"]},
+    {"id": "B2B-05", "kategori": "Skema B2B", "nama": "B2B-05 - Paket Kesiapan Karir SMK & Perguruan Tinggi", "harga": 100000, "kode_tes": ["KD1", "KD2", "KU2"]}
   ]
 }
