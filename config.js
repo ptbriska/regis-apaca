@@ -84,31 +84,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const modulDiizinkanString = Array.from(modulDiizinkanSet).join(", ");
 
-        let fileData = null;
-        if (totalBayar > 0 && fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            try {
-                fileData = await convertFileToBase64(file);
-            } catch (error) {
-                alert("Gagal memproses berkas bukti bayar.");
-                return;
-            }
-        }
+        // Pengolahan File Bukti Bayar ke Base64 (Hanya jika berbayar)
+let fileData = null;
+if (totalBayar > 0 && fileInput.files && fileInput.files.length > 0) {
+    const file = fileInput.files[0];
 
-        const payload = {
-            nama: document.getElementById("nama").value,
-            email: document.getElementById("email").value,
-            whatsapp: document.getElementById("whatsapp").value,
-            jenis_kelamin: document.getElementById("jenisKelamin").value,
-            usia: document.getElementById("usia").value,
-            instansi: document.getElementById("instansi").value,
-            lokasi: document.getElementById("lokasi").value,
-            tujuan_tes: document.getElementById("tujuanTes").value,
-            produk_dipilih: produkDipilih.join(", "),
-            modul_diizinkan: modulDiizinkanString,
-            total_bayar: totalBayar,
-            bukti_bayar: fileData
-        };
+    // Batasi ukuran maksimal 5 MB
+    if (file.size > 5 * 1024 * 1024) {
+        alert("Ukuran berkas terlalu besar! Maksimal ukuran berkas bukti bayar adalah 5 MB.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Daftar & Dapatkan Akses";
+        return;
+    }
+
+    try {
+        fileData = await convertFileToBase64(file);
+    } catch (error) {
+        alert("Gagal memproses berkas bukti bayar.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Daftar & Dapatkan Akses";
+        return;
+    }
+}
+
+// Susun Payload Lengkap
+const payload = {
+    nama: document.getElementById("nama").value,
+    email: document.getElementById("email").value,
+    whatsapp: document.getElementById("whatsapp").value,
+    jenis_kelamin: document.getElementById("jenisKelamin").value,
+    usia: document.getElementById("usia").value,
+    instansi: document.getElementById("instansi").value,
+    lokasi: document.getElementById("lokasi").value,
+    tujuan_tes: document.getElementById("tujuanTes").value,
+    produk_dipilih: produkDipilih.join(", "),
+    modul_diizinkan: modulDiizinkanString,
+    total_bayar: totalBayar,
+    bukti_bayar: fileData // Dikirim sebagai objek { fileName, mimeType, base64 } atau null
+};
 
         submitBtn.disabled = true;
         submitBtn.innerText = "Memproses Pendaftaran...";
