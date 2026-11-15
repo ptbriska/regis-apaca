@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lokasiInput = document.getElementById("lokasi");
     const submitBtn = document.getElementById("btnSubmit") || document.querySelector(".btn-submit");
     
-    // 1. Deteksi Lokasi Otomatis via IP API (DIpertahankan)
+    // 1. Deteksi Lokasi Otomatis via IP API (Dipertahankan)
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
@@ -19,16 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
             lokasiInput.placeholder = "Ketik kota/lokasi Anda manual...";
         });
 
-    // 2. Fetch Katalog Produk (data.json) dengan Injeksi UI/UX Baru
+    // 2. Fetch Katalog Produk (data.json) - Render Bersusun Per Kategori
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
             // Simpan referensi single modules untuk kalkulasi harga asli bundling
             data.single_modules.forEach(m => globalSingleModulesMap.set(m.id, m));
 
-            // Render ke UI dengan Sistem Tab Kategori
-            renderTabsAndModules(data.single_modules, "singleTabsContainer", "singleModulesContainer", false);
-            renderTabsAndModules(data.bundling_modules, "bundlingTabsContainer", "bundlingModulesContainer", true);
+            // Render semua kategori secara bersusun ke bawah tanpa tab/slider
+            renderCategorizedModules(data.single_modules, "singleModulesContainer", false);
+            renderCategorizedModules(data.bundling_modules, "bundlingModulesContainer", true);
             
             calculateTotal(); // Inisialisasi awal
         })
@@ -165,13 +165,14 @@ function convertFileToBase64(file) {
 }
 
 /* =======================================================================
-   FUNGSI UI/UX BARU: RENDER TAB, HARGA CORET & ANTI-DUPLICATE
+   FUNGSI UI/UX: RENDER BERSUSUN PER KATEGORI, HARGA CORET & ANTI-DUPLICATE
    ======================================================================= */
 
-function renderTabsAndModules(items, tabsContainerId, listContainerId, isBundling) {
-    const tabsContainer = document.getElementById(tabsContainerId);
+function renderCategorizedModules(items, listContainerId, isBundling) {
     const listContainer = document.getElementById(listContainerId);
-    if (!tabsContainer || !listContainer) return;
+    if (!listContainer) return;
+
+    listContainer.innerHTML = "";
 
     // Kelompokkan item berdasarkan 'kategori'
     const groupedData = items.reduce((acc, item) => {
@@ -183,24 +184,18 @@ function renderTabsAndModules(items, tabsContainerId, listContainerId, isBundlin
     const categories = Object.keys(groupedData);
     if (categories.length === 0) return;
 
-    // Buat Tombol Tab & Container per Kategori
-    categories.forEach((kategori, index) => {
-        const safeKategoriId = kategori.replace(/[^a-zA-Z0-9]/g, "_") + "_" + (isBundling ? "bnd" : "sgl");
-        
-        // Buat Tab Button
-        const tabBtn = document.createElement("button");
-        tabBtn.type = "button";
-        tabBtn.className = `tab-btn ${index === 0 ? "active" : ""}`;
-        tabBtn.innerText = kategori;
-        tabBtn.onclick = () => activateTab(tabsContainer, listContainer, safeKategoriId, tabBtn);
-        tabsContainer.appendChild(tabBtn);
+    categories.forEach(kategori => {
+        // Buat Blok Kelompok per Kategori
+        const categorySection = document.createElement("div");
+        categorySection.className = "category-block";
 
-        // Buat Tab Pane (List Checkbox)
-        const tabPane = document.createElement("div");
-        tabPane.className = `tab-pane ${index === 0 ? "active" : ""}`;
-        tabPane.id = safeKategoriId;
+        // Judul Sub-Kategori
+        const categoryHeader = document.createElement("div");
+        categoryHeader.className = "category-header";
+        categoryHeader.innerHTML = `<span>${kategori}</span>`;
+        categorySection.appendChild(categoryHeader);
 
-        // Render Item di dalam Pane
+        // Daftar Item di dalam Kategori tersebut
         groupedData[kategori].forEach(item => {
             const label = document.createElement("label");
             label.className = "checkbox-item";
@@ -242,21 +237,11 @@ function renderTabsAndModules(items, tabsContainerId, listContainerId, isBundlin
                 </div>
                 <div class="item-right">${displayPrice}</div>
             `;
-            tabPane.appendChild(label);
+            categorySection.appendChild(label);
         });
 
-        listContainer.appendChild(tabPane);
+        listContainer.appendChild(categorySection);
     });
-}
-
-function activateTab(tabsContainer, listContainer, targetPaneId, activeBtn) {
-    // Reset tombol active
-    tabsContainer.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-    activeBtn.classList.add("active");
-
-    // Reset pane active
-    listContainer.querySelectorAll(".tab-pane").forEach(pane => pane.classList.remove("active"));
-    document.getElementById(targetPaneId).classList.add("active");
 }
 
 function calculateTotal() {
