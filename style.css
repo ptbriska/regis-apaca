@@ -79,6 +79,14 @@ body::before {
     font-weight: 500;
 }
 
+/* Tambahkan kode ini untuk membatasi ukuran logo */
+.header img {
+    max-width: 250px; /* Sesuaikan angka ini jika ingin logo lebih besar/kecil */
+    height: auto;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
 /* =========================================================
    FORM & INPUT STYLE
    ========================================================= */
