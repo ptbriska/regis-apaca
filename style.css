@@ -52,11 +52,20 @@ body::before {
 }
 
 .header .logo {
-    max-width: 240px;
-    width: 100%;
-    height: auto;
+    width: 240px;
+    height: 110px;
+    object-fit: cover;
+    object-position: center;
     display: block;
-    margin: -20px auto -15px auto; /* Pangkas ruang kosong bawaan gambar agar rapat ke judul */
+    margin: 0 auto -15px auto; /* Tarik rapat ke teks judul di bawahnya */
+    position: relative;
+    z-index: 1; /* Posisi layer di bawah teks */
+}
+
+.header h2,
+.header p {
+    position: relative;
+    z-index: 2; /* Posisi layer paling atas agar tidak tertutup putihnya logo */
 }
 
 .header {
