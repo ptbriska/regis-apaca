@@ -39,7 +39,6 @@
                 <div class="form-group row">
                     <div class="col">
                         <label>Jenis Kelamin <span style="color:red">*</span></label>
-                        <!-- Diubah menjadi radio button agar lebih cepat diisi (tidak perlu 2x klik dropdown) -->
                         <div class="radio-group row">
                             <label class="radio-label">
                                 <input type="radio" name="jenisKelamin" value="Laki-laki" required> Laki-laki
@@ -62,7 +61,6 @@
                     </div>
                     <div class="col">
                         <label for="lokasi">Asal Daerah <span class="badge-auto">Otomatis</span></label>
-                        <!-- Menghapus 'readonly' agar pengguna tetap bisa meralat jika deteksi IP VPN meleset -->
                         <input type="text" id="lokasi" name="lokasi" placeholder="Mendeteksi lokasi atau ketik manual...">
                     </div>
                 </div>
@@ -84,23 +82,15 @@
                 
                 <div class="form-group">
                     <label class="module-label">Pilih Single Module (Satuan)</label>
-                    <!-- Wrapper disiapkan untuk navigasi Tab Kategori dari JS nanti -->
-                    <div id="singleTabsContainer" class="tabs-container"></div>
                     <div class="checkbox-group module-list-container" id="singleModulesContainer">
-                        <!-- Checkbox di-generate oleh JS -->
+                        <!-- Checkbox kategori dan modul satuan akan di-generate oleh JS di sini -->
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="module-label">Pilih Paket Bundling (Rekomendasi Hemat)</label>
-                    <!-- Wrapper Slider dengan Tombol Panah Kiri & Kanan -->
-                    <div class="tabs-slider-wrapper">
-                        <button type="button" class="slider-arrow prev" onclick="scrollTabs('singleTabsContainer', -220)" aria-label="Geser Kiri">&#10094;</button>
-                        <div id="singleTabsContainer" class="tabs-container"></div>
-                        <button type="button" class="slider-arrow next" onclick="scrollTabs('singleTabsContainer', 220)" aria-label="Geser Kanan">&#10095;</button>
-                    </div>
-                    <div class="checkbox-group module-list-container" id="singleModulesContainer">
-                        <!-- Checkbox di-generate oleh JS -->
+                    <div class="checkbox-group module-list-container" id="bundleModulesContainer">
+                        <!-- Checkbox kategori dan modul paket bundling akan di-generate oleh JS di sini -->
                     </div>
                 </div>
             </div>
@@ -108,7 +98,6 @@
             <!-- ================= TOTAL & PEMBAYARAN ================= -->
             <div class="form-section checkout-section">
                 
-                <!-- Kotak Total sekarang dibagi 2 agar space kiri tidak mubazir -->
                 <div class="total-box row">
                     <div class="col total-summary" id="orderSummaryContainer">
                         <span id="orderSummaryText" class="text-muted">Belum ada modul yang dipilih</span>
@@ -120,7 +109,6 @@
                     </div>
                 </div>
 
-                <!-- Informasi Rekening Bank ditambahkan di sini -->
                 <div class="info-rekening" id="infoRekeningGroup" style="display: none;">
                     <div class="bank-card">
                         <h4>Transfer Pembayaran:</h4>
@@ -133,14 +121,12 @@
                     </div>
                 </div>
 
-                <!-- Upload Bukti Bayar -->
                 <div class="form-group upload-group" id="buktiBayarGroup" style="display: none;">
                     <label for="buktiBayar" id="buktiBayarLabel">Upload Bukti Bayar <span style="color:red">*</span></label>
                     <input type="file" id="buktiBayar" name="buktiBayar" accept="image/*,application/pdf" class="file-input">
                     <small class="text-muted">Format yang didukung: JPG, PNG, atau PDF (Maks. 5MB)</small>
                 </div>
 
-                <!-- Teks CTA diubah agar sesuai dengan realita adanya proses pembayaran -->
                 <button type="submit" class="btn-submit" id="btnSubmit">Daftar & Lanjut Pembayaran</button>
             </div>
         </form>
