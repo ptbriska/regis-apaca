@@ -9,93 +9,136 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>Selamat datang di portal pendaftaran Psikometric & Aptittude Test System APACA Consulting</h2>
+            <!-- Menambahkan logo perusahaan -->
+            <img src="logo.png" alt="Logo APACA Consulting" class="logo" onerror="this.style.display='none'">
+            <h2>Selamat datang di portal pendaftaran Psychometric & Aptitude Test System APACA Consulting</h2>
             <p>Silakan lengkapi data diri dan pilih modul tes yang Anda butuhkan.</p>
         </div>
 
         <form id="registrationForm">
-            <!-- Data Diri Utama -->
-            <div class="form-group">
-                <label for="nama">Nama Lengkap <span style="color:red">*</span></label>
-                <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap...">
-            </div>
-
-            <div class="form-group row">
-                <div class="col">
-                    <label for="email">Alamat Email (Aktif) <span style="color:red">*</span></label>
-                    <input type="email" id="email" name="email" required placeholder="contoh: nama@gmail.com">
+            <!-- ================= DATA DIRI UTAMA ================= -->
+            <div class="form-section">
+                <h3 class="section-title">Informasi Pendaftar</h3>
+                
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap <span style="color:red">*</span></label>
+                    <input type="text" id="nama" name="nama" required placeholder="Contoh: Budi Santoso">
                 </div>
-                <div class="col">
-                    <label for="whatsapp">Nomor WhatsApp <span style="color:red">*</span></label>
-                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Contoh: 081234567890">
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <div class="col">
-                    <label for="jenisKelamin">Jenis Kelamin <span style="color:red">*</span></label>
-                    <select id="jenisKelamin" name="jenisKelamin" required class="form-control">
-                        <option value="">-- Pilih --</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="email">Alamat Email (Aktif) <span style="color:red">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="Contoh: nama@gmail.com">
+                    </div>
+                    <div class="col">
+                        <label for="whatsapp">Nomor WhatsApp <span style="color:red">*</span></label>
+                        <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Contoh: 081234567890">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <label>Jenis Kelamin <span style="color:red">*</span></label>
+                        <!-- Diubah menjadi radio button agar lebih cepat diisi (tidak perlu 2x klik dropdown) -->
+                        <div class="radio-group row">
+                            <label class="radio-label">
+                                <input type="radio" name="jenisKelamin" value="Laki-laki" required> Laki-laki
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="jenisKelamin" value="Perempuan" required> Perempuan
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="usia">Usia Pendaftar (Tahun) <span style="color:red">*</span></label>
+                        <input type="number" id="usia" name="usia" min="1" required placeholder="Contoh: 18">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="instansi">Asal Instansi <span style="color:red">*</span></label>
+                        <input type="text" id="instansi" name="instansi" required placeholder="Contoh: SMAN 1 Jakarta / Universitas / Nama PT">
+                    </div>
+                    <div class="col">
+                        <label for="lokasi">Asal Daerah <span class="badge-auto">Otomatis</span></label>
+                        <!-- Menghapus 'readonly' agar pengguna tetap bisa meralat jika deteksi IP VPN meleset -->
+                        <input type="text" id="lokasi" name="lokasi" placeholder="Mendeteksi lokasi atau ketik manual...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tujuanTes">Tujuan Mengikuti Tes</label>
+                    <select id="tujuanTes" name="tujuanTes" class="form-control">
+                        <option value="Pengembangan Diri">Pengembangan Diri / Evaluasi Mandiri</option>
+                        <option value="Persyaratan Sekolah/Kampus">Persyaratan Masuk Sekolah / Kampus</option>
+                        <option value="Persiapan Karir/Rekrutmen">Persiapan Karir / Seleksi Kerja</option>
+                        <option value="Rekomendasi Konseling">Pendampingan Konseling / Counseling</option>
                     </select>
                 </div>
-                <div class="col">
-                    <label for="usia">Usia Pendaftar <span style="color:red">*</span></label>
-                    <input type="number" id="usia" name="usia" required placeholder="Contoh: 18">
+            </div>
+
+            <!-- ================= PEMILIHAN MODUL ================= -->
+            <div class="form-section">
+                <h3 class="section-title">Pilihan Modul & Paket</h3>
+                
+                <div class="form-group">
+                    <label class="module-label">Pilih Single Module (Satuan)</label>
+                    <!-- Wrapper disiapkan untuk navigasi Tab Kategori dari JS nanti -->
+                    <div id="singleTabsContainer" class="tabs-container"></div>
+                    <div class="checkbox-group module-list-container" id="singleModulesContainer">
+                        <!-- Checkbox di-generate oleh JS -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="module-label">Pilih Paket Bundling (Rekomendasi Hemat)</label>
+                    <!-- Wrapper disiapkan untuk filter B2C / B2B dari JS nanti -->
+                    <div id="bundlingTabsContainer" class="tabs-container"></div>
+                    <div class="checkbox-group module-list-container" id="bundlingModulesContainer">
+                        <!-- Checkbox di-generate oleh JS -->
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col">
-                    <label for="instansi">Asal Instansi <span style="color:red">*</span></label>
-                    <input type="text" id="instansi" name="instansi" required placeholder="Sekolah / Kampus / Kerja">
+            <!-- ================= TOTAL & PEMBAYARAN ================= -->
+            <div class="form-section checkout-section">
+                
+                <!-- Kotak Total sekarang dibagi 2 agar space kiri tidak mubazir -->
+                <div class="total-box row">
+                    <div class="col total-summary" id="orderSummaryContainer">
+                        <span id="orderSummaryText" class="text-muted">Belum ada modul yang dipilih</span>
+                    </div>
+                    <div class="col total-amount-wrapper">
+                        <h3>TOTAL YANG HARUS DIBAYAR:</h3>
+                        <h2 id="totalDisplay">Rp 0</h2>
+                        <input type="hidden" id="totalValue" name="total_bayar" value="0">
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="lokasi">Asal Daerah (Terdeteksi Otomatis)</label>
-                    <input type="text" id="lokasi" name="lokasi" readonly placeholder="Mendeteksi lokasi...">
+
+                <!-- Informasi Rekening Bank ditambahkan di sini -->
+                <div class="info-rekening" id="infoRekeningGroup" style="display: none;">
+                    <div class="bank-card">
+                        <h4>Transfer Pembayaran:</h4>
+                        <div class="bank-details">
+                            <span class="bank-name">Bank Mandiri</span>
+                            <span class="bank-number">1520524920242</span>
+                            <span class="bank-owner">a.n. Brimo Swarnindo Karyavara</span>
+                        </div>
+                        <p class="bank-note">Pastikan nominal transfer sesuai dengan total bayar di atas.</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="tujuanTes">Tujuan Mengikuti Tes</label>
-                <select id="tujuanTes" name="tujuanTes" class="form-control">
-                    <option value="Pengembangan Diri">Pengembangan Diri / Evaluasi Mandiri</option>
-                    <option value="Persyaratan Sekolah/Kampus">Persyaratan Masuk Sekolah / Kampus</option>
-                    <option value="Persiapan Karir/Rekrutmen">Persiapan Karir / Seleksi Kerja</option>
-                    <option value="Rekomendasi Konseling">Pendampingan Konseling / Counseling</option>
-                </select>
-            </div>
-
-            <!-- Pemilihan Modul -->
-            <div class="form-group">
-                <label>Pilih Single Module (Pilar 1, 2, & 3)</label>
-                <div class="checkbox-group" id="singleModulesContainer">
-                    <!-- Checkbox di-generate oleh JS -->
+                <!-- Upload Bukti Bayar -->
+                <div class="form-group upload-group" id="buktiBayarGroup" style="display: none;">
+                    <label for="buktiBayar" id="buktiBayarLabel">Upload Bukti Bayar <span style="color:red">*</span></label>
+                    <input type="file" id="buktiBayar" name="buktiBayar" accept="image/*,application/pdf" class="file-input">
+                    <small class="text-muted">Format yang didukung: JPG, PNG, atau PDF (Maks. 5MB)</small>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Pilih Bundling / Massal Institusi</label>
-                <div class="checkbox-group" id="bundlingModulesContainer">
-                    <!-- Checkbox di-generate oleh JS -->
-                </div>
+                <!-- Teks CTA diubah agar sesuai dengan realita adanya proses pembayaran -->
+                <button type="submit" class="btn-submit" id="btnSubmit">Daftar & Lanjut Pembayaran</button>
             </div>
-
-            <!-- Total Harga -->
-            <div class="total-box">
-                <h3>Total yang harus dibayar:</h3>
-                <h2 id="totalDisplay">Rp 0</h2>
-                <input type="hidden" id="totalValue" name="total_bayar" value="0">
-            </div>
-
-            <!-- Upload Bukti Bayar (Kondisional: Diatur Dinamis via JS) -->
-            <div class="form-group" id="buktiBayarGroup">
-                <label for="buktiBayar" id="buktiBayarLabel">Upload Bukti Bayar <span style="color:red">*</span></label>
-                <input type="file" id="buktiBayar" name="buktiBayar" accept="image/*,application/pdf">
-            </div>
-
-            <button type="submit" class="btn-submit">Daftar & Dapatkan Akses</button>
         </form>
     </div>
 
