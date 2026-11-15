@@ -3,70 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kwitansi Resmi Pendaftaran PATS - APACA Consulting</title>
+    <title>Dokumen Bukti Bayar Resmi Pendaftaran PATS - APACA Consulting</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap');
         
         * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: #f4f6f9; margin: 0; padding: 40px 20px; display: flex; justify-content: center; }
+        
+        /* TAMPILAN DIGITAL (LAYAR) */
+        body { 
+            background: radial-gradient(circle at 50% 50%, #4a000b 0%, #1a0004 50%, #0a0002 100%);
+            margin: 0; 
+            padding: 40px 20px; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh;
+            position: relative;
+            color: #1e293b;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(230, 0, 38, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
         
         .receipt-card {
-            background: #ffffff; width: 100%; max-width: 750px;
-            padding: 40px; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 100%; 
+            max-width: 750px;
+            padding: 50px; 
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.5);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* Watermark Digital */
+        .receipt-card::after {
+            content: 'VERIFIED';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            font-weight: 800;
+            color: rgba(22, 163, 74, 0.04);
+            pointer-events: none;
+            z-index: 0;
+            letter-spacing: 10px;
         }
 
         /* Kop Surat */
         .kop-surat {
             display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 3px double #8b0010; padding-bottom: 20px; margin-bottom: 25px;
+            border-bottom: 3px double #b30012; 
+            padding-bottom: 20px; margin-bottom: 25px;
+            position: relative; z-index: 2;
         }
-        .kop-logo { width: 100px; height: auto; }
+        .kop-logo { width: 110px; height: auto; }
         .kop-info { text-align: right; }
-        .kop-info h2 { margin: 0; color: #8b0010; font-size: 1.4rem; font-weight: 800; }
-        .kop-info p { margin: 4px 0 0; font-size: 0.82rem; color: #555; line-height: 1.3; }
-
-        .title-receipt { text-align: center; margin-bottom: 30px; }
-        .title-receipt h3 { margin: 0; color: #1e293b; text-transform: uppercase; letter-spacing: 1px; }
-        .title-receipt p { margin: 5px 0 0; font-size: 0.85rem; color: #64748b; }
-
-        /* Highlight Box Kode Akses */
-        .access-box {
-            background: #fff0f2; border: 2px dashed #e60026;
-            padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 30px;
+        .kop-info h2 { 
+            margin: 0; 
+            font-size: 1.6rem; 
+            font-weight: 800; 
+            background: linear-gradient(135deg, #8b0010 0%, #e60026 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
-        .access-box span { display: block; font-size: 0.85rem; color: #666; font-weight: 600; }
-        .access-box h1 { margin: 5px 0 0; color: #b30012; font-size: 2rem; letter-spacing: 2px; }
+        .kop-info p { margin: 6px 0 0; font-size: 0.85rem; color: #475569; line-height: 1.4; font-weight: 500; }
+
+        .title-receipt { text-align: center; margin-bottom: 30px; position: relative; z-index: 2; }
+        .title-receipt h3 { margin: 0; color: #0f172a; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; font-size: 1.3rem; }
+        .title-receipt p { margin: 8px 0 0; font-size: 0.9rem; color: #64748b; font-weight: 500; }
+
+        /* Highlight Box Kode Akses Futuristik */
+        .access-box {
+            background: linear-gradient(135deg, #fff0f2 0%, #ffffff 100%);
+            border: 2px dashed #e60026;
+            padding: 20px; 
+            border-radius: 12px; 
+            text-align: center; 
+            margin-bottom: 35px;
+            position: relative; z-index: 2;
+            box-shadow: 0 10px 20px rgba(230, 0, 38, 0.05);
+        }
+        .access-box span { display: block; font-size: 0.85rem; color: #8b0010; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .access-box h1 { 
+            margin: 10px 0 0; 
+            color: #b30012; 
+            font-size: 2.2rem; 
+            font-family: 'Space Mono', monospace; 
+            letter-spacing: 3px; 
+            text-shadow: 0 2px 10px rgba(230,0,38,0.2);
+        }
 
         /* Tabel Rekap Data */
-        .table-data { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        .table-data td { padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        .table-data { width: 100%; border-collapse: collapse; margin-bottom: 30px; position: relative; z-index: 2; }
+        .table-data td { padding: 14px 10px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
         .table-data td.label { font-weight: 600; color: #475569; width: 35%; }
-        .table-data td.value { color: #0f172a; }
+        .table-data td.value { color: #0f172a; font-weight: 500; }
+        .table-data tr:last-child td { border-bottom: none; }
 
         /* Tanda Tangan Section */
-        .ttd-section { display: flex; justify-content: flex-end; margin-top: 40px; }
+        .ttd-section { display: flex; justify-content: flex-end; margin-top: 40px; position: relative; z-index: 2; }
         .ttd-box { text-align: center; width: 250px; }
-        .ttd-box p { margin: 0; font-size: 0.9rem; color: #334155; }
-        .ttd-space { height: 70px; }
-        .ttd-nama { font-weight: 700; text-decoration: underline; color: #0f172a; margin-top: 5px; }
+        .ttd-box p { margin: 0; font-size: 0.95rem; color: #334155; }
+        .ttd-space { height: 80px; position: relative; }
+        
+        /* Stempel Digital Buatan (Opsional) */
+        .ttd-space::after {
+            content: 'APACA CONSULTING';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            color: rgba(139, 0, 16, 0.1);
+            font-weight: 800; font-size: 1.2rem;
+            border: 2px solid rgba(139, 0, 16, 0.1);
+            padding: 5px 10px; border-radius: 5px;
+            pointer-events: none;
+        }
 
-        /* Tombol Cetak (Tidak ikut tercetak saat di-print) */
+        .ttd-nama { font-weight: 800; text-decoration: underline; color: #0f172a; margin-top: 5px; font-size: 1.05rem; }
+
+        /* Tombol Aksi */
         .action-buttons {
-            display: flex; gap: 15px; justify-content: center; margin-top: 30px;
+            display: flex; gap: 15px; justify-content: center; margin-top: 40px; position: relative; z-index: 2;
         }
         .btn {
-            padding: 12px 25px; border-radius: 8px; font-weight: 700;
-            cursor: pointer; border: none; font-size: 0.95rem; transition: 0.2s;
+            padding: 14px 28px; border-radius: 12px; font-weight: 700;
+            cursor: pointer; border: none; font-size: 0.95rem; transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
         }
-        .btn-print { background: #8b0010; color: #ffffff; }
-        .btn-print:hover { background: #e60026; }
-        .btn-home { background: #e2e8f0; color: #334155; text-decoration: none; display: inline-block; }
+        .btn-print { 
+            background: linear-gradient(135deg, #e60026 0%, #8b0010 100%); 
+            color: #ffffff; 
+            box-shadow: 0 8px 20px rgba(230, 0, 38, 0.3);
+        }
+        .btn-print:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(230, 0, 38, 0.4); }
+        .btn-home { 
+            background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; 
+        }
+        .btn-home:hover { background: #e2e8f0; color: #0f172a; }
 
+        /* =========================================================
+           TAMPILAN CETAK (PRINT & PDF) - BERSIH & FORMAL
+           ========================================================= */
         @media print {
-            body { background: #ffffff; padding: 0; }
-            .receipt-card { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; }
+            body { background: #ffffff; padding: 0; min-height: auto; }
+            body::before { display: none; }
+            .receipt-card { 
+                box-shadow: none; border: none; width: 100%; max-width: 100%; 
+                padding: 0; border-radius: 0; filter: none; backdrop-filter: none;
+            }
             .action-buttons { display: none !important; }
+            .kop-info h2 { -webkit-text-fill-color: #000; background: none; color: #000; }
+            .access-box { border: 2px dashed #000; background: #fff; box-shadow: none; padding: 15px; }
+            .access-box span, .access-box h1 { color: #000; text-shadow: none; }
+            .table-data td { border-bottom: 1px solid #000; color: #000; padding: 10px; }
+            .table-data td.label, .table-data td.value { color: #000; }
+            .receipt-card::after { display: none; } /* Hapus watermark abu-abu besar saat cetak */
+            .ttd-space::after { border-color: rgba(0,0,0,0.2); color: rgba(0,0,0,0.2); }
         }
     </style>
 </head>
@@ -108,16 +216,16 @@
                 <td class="value" id="instansiDisplay">-</td>
             </tr>
             <tr>
-                <td class="label">Modul Diizinkan (Kode Tes)</td>
-                <td class="value" style="font-weight: 700; color: #b30012;" id="modulDisplay">-</td>
+                <td class="label">Modul Diizinkan (Kode)</td>
+                <td class="value" style="font-family: 'Space Mono', monospace; font-weight: 700; color: #b30012; font-size: 0.9rem;" id="modulDisplay">-</td>
             </tr>
             <tr>
                 <td class="label">Total Pembayaran</td>
-                <td class="value" style="font-weight: 700; font-size: 1.1rem;" id="totalDisplay">Rp 0</td>
+                <td class="value" style="font-weight: 800; font-size: 1.2rem;" id="totalDisplay">Rp 0</td>
             </tr>
             <tr>
-                <td class="label">Status Pembayaran</td>
-                <td class="value" style="color: #16a34a; font-weight: 700;" id="statusDisplay">LUNAS / VERIFIED</td>
+                <td class="label">Status Akses</td>
+                <td class="value" style="color: #10b981; font-weight: 800; letter-spacing: 0.5px;" id="statusDisplay">LUNAS / VERIFIED</td>
             </tr>
         </table>
 
@@ -125,15 +233,19 @@
         <div class="ttd-section">
             <div class="ttd-box">
                 <p id="kotaTglTtd">Makassar, -</p>
-                <p><strong>Staf Akuntan,</strong></p>
+                <p style="margin-top: 4px;"><strong>Pihak Penyelenggara,</strong></p>
                 <div class="ttd-space"></div>
-                <div class="ttd-nama">Bagus Primohadi</div>
+                <div class="ttd-nama">Staff Akuntan Briska</div>
+                <p style="font-size: 0.8rem; margin-top: 4px; color: #64748b;">APACA Consulting</p>
             </div>
         </div>
 
         <!-- Tombol Aksi -->
         <div class="action-buttons">
-            <button class="btn btn-print" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+            <button class="btn btn-print" onclick="window.print()">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Cetak / Simpan PDF
+            </button>
             <a href="index.html" class="btn btn-home">Kembali ke Beranda</a>
         </div>
     </div>
