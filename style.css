@@ -79,20 +79,13 @@ body::before {
     font-weight: 500;
 }
 
-/* Tambahkan kode ini untuk membatasi ukuran logo */
-.header img {
-    max-width: 250px; /* Sesuaikan angka ini jika ingin logo lebih besar/kecil */
-    height: auto;
-    margin-bottom: 20px;
-    display: inline-block;
-}
-
 .logo {
-    max-width: 180px;
+    max-width: 240px;           /* Diperbesar sedikit karena area kosong di dalam gambar cukup luas */
     width: 100%;
     height: auto;
     display: block;
-    margin: 0 auto 20px auto;
+    margin: -15px auto 5px auto; /* Margin negatif atas & rapat ke bawah untuk memangkas ruang kosong bawaan gambar */
+    mix-blend-mode: multiply;    /* Kunci utama: melarutkan background putih logo agar menyatu dengan kartu */
 }
 
 /* =========================================================
