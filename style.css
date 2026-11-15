@@ -60,6 +60,11 @@ body::before {
     border-bottom: 1px solid rgba(200, 200, 200, 0.5);
 }
 
+.logo {
+    max-width: 180px;
+    margin-bottom: 15px;
+}
+
 .header h2 {
     color: #8b0010;
     font-size: 1.8rem;
@@ -77,15 +82,6 @@ body::before {
     font-size: 0.95rem;
     margin-bottom: 0;
     font-weight: 500;
-}
-
-.logo {
-    max-width: 240px;            /* Diperbesar sedikit karena area kosong di dalam gambar cukup luas */
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: -15px auto 5px auto; /* Margin negatif atas & rapat ke bawah untuk memangkas ruang kosong bawaan gambar */
-    mix-blend-mode: multiply;    /* Kunci utama: melarutkan background putih logo agar menyatu dengan kartu */
 }
 
 /* =========================================================
@@ -134,56 +130,65 @@ input[readonly] {
     cursor: not-allowed;
 }
 
-/* =========================================================
-   DAFTAR KATEGORI BERSUSUN KE BAWAH (TANPA SLIDER/TAB)
-   ========================================================= */
-.tabs-container {
-    display: none;
+.badge-auto {
+    background: #e2e8f0;
+    color: #64748b;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
 }
 
-.checkbox-group {
-    background: transparent;
-    border: none;
-    padding: 0;
-    max-height: none;
-    overflow: visible;
-    box-shadow: none;
+/* Radio Button Layout */
+.radio-label {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    margin: 0;
+    cursor: pointer;
+}
+.radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #e60026;
 }
 
-.category-block {
+/* =========================================================
+   CHECKBOX LIST & CATEGORY INLINE (STICKY HEADER)
+   ========================================================= */
+.checkbox-group {
     background: #ffffff;
     border: 1.5px solid #e2e8f0;
     border-radius: 16px;
-    padding: 16px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    padding: 16px;
+    max-height: 280px;
+    overflow-y: auto;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+    position: relative; /* Penting untuk sticky header */
 }
 
-.category-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-    padding-bottom: 10px;
-    border-bottom: 1.5px solid #f1f5f9;
-}
-
-.category-header span {
-    background: linear-gradient(135deg, #8b0010 0%, #e60026 100%);
-    color: #ffffff;
-    font-size: 0.78rem;
+.category-inline-header {
     font-weight: 800;
-    letter-spacing: 0.6px;
+    color: #8b0010;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(230, 0, 38, 0.2);
+    letter-spacing: 1px;
+    padding: 12px 8px 8px 8px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #f1f5f9;
+    position: sticky;
+    top: -16px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    z-index: 10;
 }
 
-/* =========================================================
-   CHECKBOX LIST & CONFLICT GUARD
-   ========================================================= */
+.category-inline-header:first-child {
+    padding-top: 0;
+}
+
 .checkbox-item {
     display: flex;
     justify-content: space-between;
@@ -241,7 +246,7 @@ input[readonly] {
 /* =========================================================
    HARGA CORET & LABEL BADGE
    ========================================================= */
-.item-right { text-align: right; flex-shrink: 0; margin-left: 12px; }
+.item-right { text-align: right; flex-shrink: 0; }
 
 .item-price {
     font-weight: 800;
@@ -291,19 +296,21 @@ input[readonly] {
 }
 
 /* =========================================================
-   TOTAL BOX & DYNAMIC SUMMARY
+   TOTAL BOX & DYNAMIC SUMMARY (SPLIT LAYOUT)
    ========================================================= */
 .total-box {
     background: linear-gradient(135deg, #1a0004 0%, #4a000b 100%);
     border-radius: 20px;
     padding: 24px 30px;
-    text-align: right;
     margin: 30px 0;
     color: #ffffff;
     box-shadow: 0 15px 35px rgba(74, 0, 11, 0.5);
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(255, 128, 128, 0.2);
+    display: flex; /* Mengaktifkan dua kolom */
+    align-items: center;
+    justify-content: space-between;
 }
 
 .total-box::before {
@@ -323,6 +330,27 @@ input[readonly] {
     100% { transform: rotate(360deg); }
 }
 
+.total-summary {
+    text-align: left;
+    font-size: 0.85rem;
+    color: #ffb3b3;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+    padding-right: 15px;
+}
+
+.summary-list {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.total-amount-wrapper {
+    text-align: right;
+    position: relative;
+    z-index: 2;
+}
+
 .total-box h3 {
     margin: 0;
     font-size: 0.9rem;
@@ -330,8 +358,6 @@ input[readonly] {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 700;
-    position: relative;
-    z-index: 2;
 }
 
 .total-box h2 {
@@ -340,25 +366,6 @@ input[readonly] {
     font-size: 2.5rem;
     font-weight: 800;
     text-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
-    position: relative;
-    z-index: 2;
-}
-
-.order-summary-container {
-    text-align: left;
-    font-size: 0.85rem;
-    color: #ffb3b3;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    position: relative;
-    z-index: 2;
-    line-height: 1.6;
-}
-
-.summary-list {
-    color: #ffffff;
-    font-weight: 600;
 }
 
 /* =========================================================
@@ -388,14 +395,20 @@ input[readonly] {
     pointer-events: none;
 }
 
-.bank-logo-text {
-    font-size: 1.3rem;
+.bank-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.bank-name {
+    font-size: 1.1rem;
     font-weight: 800;
     font-style: italic;
-    color: #fbbf24; /* Warna Emas Mandiri */
-    margin-bottom: 12px;
+    color: #fbbf24; 
+    margin-bottom: 8px;
     display: inline-block;
-    letter-spacing: -0.5px;
 }
 
 .bank-number {
@@ -414,6 +427,13 @@ input[readonly] {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.bank-note {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    margin: 0;
+    font-style: italic;
 }
 
 /* =========================================================
@@ -457,8 +477,13 @@ input[readonly] {
    RESPONSIVE MOBILE
    ========================================================= */
 @media (max-width: 600px) {
-    .row { flex-direction: column; gap: 0; }
+    .row, .total-box { flex-direction: column; gap: 15px; }
     .container { padding: 24px; border-radius: 16px; }
+    
+    .total-box { text-align: center; }
+    .total-summary, .total-amount-wrapper { text-align: center; padding-right: 0; }
+    .total-summary { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+    
     .total-box h2 { font-size: 2rem; }
     .bank-number { font-size: 1.3rem; letter-spacing: 2px; }
 }
