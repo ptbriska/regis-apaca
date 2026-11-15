@@ -42,22 +42,13 @@ body::before {
 .container {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    background: #ffffff; /* Diubah menjadi putih solid agar menyatu dengan background logo */
     width: 100%;
     max-width: 760px;
     padding: 40px;
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 35px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
 }
 
 .header .logo {
@@ -65,8 +56,14 @@ body::before {
     width: 100%;
     height: auto;
     display: block;
-    margin: -25px auto -20px auto; /* Pangkas ruang kosong atas & tarik rapat ke judul bawah */
-    mix-blend-mode: multiply;      /* Larutkan background putih logo */
+    margin: -20px auto -15px auto; /* Pangkas ruang kosong bawaan gambar agar rapat ke judul */
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.5);
 }
 
 .header h2 {
