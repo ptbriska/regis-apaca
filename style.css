@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap'); /* Untuk font nomor rekening */
 
 * {
     box-sizing: border-box;
@@ -6,7 +7,7 @@
 }
 
 body {
-    background: radial-gradient(circle at 20% 20%, #e60026 0%, #4a000b 50%, #1a0004 100%);
+    background: radial-gradient(circle at 20% 20%, #e60026 0%, #4a000b 50%, #0a0002 100%);
     background-attachment: fixed;
     margin: 0;
     padding: 40px 20px;
@@ -25,25 +26,31 @@ body::before {
     position: absolute;
     top: -10%;
     right: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255, 77, 77, 0.3) 0%, rgba(0,0,0,0) 70%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 77, 77, 0.25) 0%, rgba(0,0,0,0) 70%);
     z-index: 0;
     pointer-events: none;
+    animation: pulseGlow 8s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.1); opacity: 1; }
 }
 
 .container {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     width: 100%;
     max-width: 760px;
     padding: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(230, 0, 38, 0.2);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .header {
@@ -55,42 +62,36 @@ body::before {
 
 .header h2 {
     color: #8b0010;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 800;
     margin-top: 0;
     line-height: 1.4;
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #b30012 0%, #e60026 100%);
+    background: linear-gradient(135deg, #8b0010 0%, #ff1a3c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .header p {
-    color: #666;
+    color: #64748b;
     font-size: 0.95rem;
     margin-bottom: 0;
     font-weight: 500;
 }
 
-.form-group {
-    margin-bottom: 22px;
-}
-
-.row {
-    display: flex;
-    gap: 16px;
-}
-
-.col {
-    flex: 1;
-}
+/* =========================================================
+   FORM & INPUT STYLE
+   ========================================================= */
+.form-group { margin-bottom: 22px; }
+.row { display: flex; gap: 16px; }
+.col { flex: 1; }
 
 label {
     display: block;
     font-weight: 700;
     font-size: 0.9rem;
     margin-bottom: 8px;
-    color: #333;
+    color: #334155;
     letter-spacing: 0.2px;
 }
 
@@ -101,20 +102,16 @@ input[type="number"],
 input[type="file"],
 select.form-control {
     width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid #e1e1e1;
-    border-radius: 10px;
+    padding: 14px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
     font-size: 0.95rem;
-    background: #fdfdfd;
-    color: #2b2b2b;
+    background: #f8fafc;
+    color: #1e293b;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-input[type="text"]:focus, 
-input[type="email"]:focus, 
-input[type="tel"]:focus, 
-input[type="number"]:focus,
-select.form-control:focus {
+input:focus, select:focus {
     border-color: #e60026;
     background: #ffffff;
     outline: none;
@@ -122,78 +119,193 @@ select.form-control:focus {
 }
 
 input[readonly] {
-    background: #f1f3f5;
-    color: #777;
-    border-color: #e5e5e5;
+    background: #f1f5f9;
+    color: #94a3b8;
+    border-color: #e2e8f0;
     cursor: not-allowed;
 }
 
-/* Styling Checkbox Group Futuristik */
+/* =========================================================
+   SISTEM TAB NAVIGASI (BARU)
+   ========================================================= */
+.tabs-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none; /* Firefox */
+}
+.tabs-container::-webkit-scrollbar { display: none; } /* Chrome */
+
+.tab-btn {
+    background: #f1f5f9;
+    border: 1.5px solid transparent;
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #64748b;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #e60026 0%, #8b0010 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(230, 0, 38, 0.3);
+    border-color: transparent;
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeSlideUp 0.4s ease forwards;
+}
+.tab-pane.active { display: block; }
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   CHECKBOX LIST & CONFLICT GUARD (BARU)
+   ========================================================= */
 .checkbox-group {
     background: #ffffff;
     border: 1.5px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 16px;
-    max-height: 260px;
+    max-height: 280px;
     overflow-y: auto;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
 }
 
 .checkbox-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
     cursor: pointer;
-    align-items: center;
     border-bottom: 1px solid #f1f5f9;
-    padding: 10px 8px;
-    border-radius: 8px;
-    transition: background 0.2s ease;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
 }
 
 .checkbox-item:hover {
     background: #fff5f5;
+    transform: translateX(4px);
+}
+.checkbox-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+.item-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
-.checkbox-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
+.item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .checkbox-item input[type="checkbox"] {
-    margin-right: 12px;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     accent-color: #e60026;
     cursor: pointer;
 }
 
 .item-name {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: #334155;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1e293b;
 }
 
+/* Conflict Guard: State saat didisable oleh Bundling */
+.checkbox-item.disabled-by-bundle {
+    opacity: 0.4;
+    pointer-events: none;
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    filter: grayscale(100%);
+    transform: none;
+}
+
+/* =========================================================
+   HARGA CORET & LABEL BADGE (BARU)
+   ========================================================= */
+.item-right { text-align: right; }
+
 .item-price {
-    font-weight: 700;
-    font-size: 0.92rem;
+    font-weight: 800;
+    font-size: 0.95rem;
     color: #b30012;
     background: #ffe6e6;
     padding: 4px 10px;
-    border-radius: 6px;
+    border-radius: 8px;
+    display: inline-block;
 }
 
-/* Total Display Box Mewah */
+.price-bundle-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.price-strike {
+    text-decoration: line-through;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge-save {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+    width: max-content;
+}
+
+.badge-free {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
+/* =========================================================
+   TOTAL BOX & DYNAMIC SUMMARY
+   ========================================================= */
 .total-box {
-    background: linear-gradient(135deg, #1e0005 0%, #4a000b 100%);
-    border-radius: 14px;
-    padding: 22px 28px;
+    background: linear-gradient(135deg, #1a0004 0%, #4a000b 100%);
+    border-radius: 20px;
+    padding: 24px 30px;
     text-align: right;
     margin: 30px 0;
     color: #ffffff;
-    box-shadow: 0 10px 25px rgba(74, 0, 11, 0.4);
+    box-shadow: 0 15px 35px rgba(74, 0, 11, 0.5);
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(255, 128, 128, 0.2);
 }
 
 .total-box::before {
@@ -203,8 +315,14 @@ input[readonly] {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(230, 0, 38, 0.2) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(230, 0, 38, 0.25) 0%, transparent 60%);
     pointer-events: none;
+    animation: rotateGlow 10s linear infinite;
+}
+
+@keyframes rotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .total-box h3 {
@@ -212,165 +330,137 @@ input[readonly] {
     font-size: 0.9rem;
     color: #ffcccc;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
 }
 
 .total-box h2 {
     margin: 6px 0 0;
     color: #ffffff;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    text-shadow: 0 0 12px rgba(255, 77, 77, 0.5);
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
+    position: relative;
+    z-index: 2;
 }
 
-/* Tombol Submit Neon Gradient */
+.order-summary-container {
+    text-align: left;
+    font-size: 0.85rem;
+    color: #ffb3b3;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    z-index: 2;
+    line-height: 1.6;
+}
+
+.summary-list {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* =========================================================
+   KARTU REKENING HOLOGRAFIK (BARU)
+   ========================================================= */
+.bank-card {
+    background: linear-gradient(135deg, #111827 0%, #1e1b4b 100%);
+    border-radius: 16px;
+    padding: 24px;
+    color: #ffffff;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), inset 0 2px 10px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bank-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, transparent, rgba(251, 191, 36, 0.15));
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.bank-logo-text {
+    font-size: 1.3rem;
+    font-weight: 800;
+    font-style: italic;
+    color: #fbbf24; /* Warna Emas Mandiri */
+    margin-bottom: 12px;
+    display: inline-block;
+    letter-spacing: -0.5px;
+}
+
+.bank-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    margin-bottom: 4px;
+    color: #f8fafc;
+}
+
+.bank-owner {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   TOMBOL SUBMIT NEON GLOW
+   ========================================================= */
 .btn-submit {
     width: 100%;
-    padding: 16px;
+    padding: 18px;
     background: linear-gradient(135deg, #e60026 0%, #8b0010 100%);
     color: #ffffff;
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 800;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(230, 0, 38, 0.35);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(230, 0, 38, 0.4);
     letter-spacing: 0.5px;
 }
 
 .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(230, 0, 38, 0.5);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(230, 0, 38, 0.6);
     background: linear-gradient(135deg, #ff1a3c 0%, #a30013 100%);
 }
 
 .btn-submit:disabled {
-    background: #cccccc;
+    background: #94a3b8;
     cursor: not-allowed;
     box-shadow: none;
+    transform: none;
 }
 
-/* Custom Scrollbar untuk Checkbox Group */
-.checkbox-group::-webkit-scrollbar {
-    width: 6px;
-}
-.checkbox-group::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-.checkbox-group::-webkit-scrollbar-thumb {
-    background: #e60026;
-    border-radius: 10px;
-}
+/* Custom Scrollbar Checkbox Group */
+.checkbox-group::-webkit-scrollbar { width: 6px; }
+.checkbox-group::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+.checkbox-group::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+.checkbox-group::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-/* Styling Modal Pop-up Konfirmasi Instan */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 0, 3, 0.85);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.modal-content {
-    background: #ffffff;
-    padding: 32px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 480px;
-    text-align: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(230, 0, 38, 0.3);
-    animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes modalPop {
-    from { opacity: 0; transform: scale(0.85); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-.modal-header h3 {
-    color: #8b0010;
-    margin-top: 0;
-    font-size: 1.4rem;
-    font-weight: 800;
-}
-
-.access-key-box {
-    background: #fff0f2;
-    border: 2px dashed #e60026;
-    padding: 16px 20px;
-    margin: 20px 0;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#modalAccessKey {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #b30012;
-    letter-spacing: 1.5px;
-}
-
-#copyKeyBtn {
-    background: #e60026;
-    color: #ffffff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 0.85rem;
-    transition: background 0.2s;
-}
-
-#copyKeyBtn:hover {
-    background: #8b0010;
-}
-
-.email-note {
-    font-size: 0.85rem;
-    color: #64748b;
-    margin-top: 15px;
-    line-height: 1.4;
-}
-
-.btn-close {
-    background: #1e293b;
-    color: #ffffff;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-top: 10px;
-    transition: background 0.2s;
-}
-
-.btn-close:hover {
-    background: #334155;
-}
-
-/* Responsive Grid untuk Layar HP */
+/* =========================================================
+   RESPONSIVE MOBILE
+   ========================================================= */
 @media (max-width: 600px) {
-    .row {
-        flex-direction: column;
-        gap: 0;
-    }
-    .container {
-        padding: 24px;
-    }
-    .total-box h2 {
-        font-size: 1.7rem;
-    }
+    .row { flex-direction: column; gap: 0; }
+    .container { padding: 24px; border-radius: 16px; }
+    .total-box h2 { font-size: 2rem; }
+    .bank-number { font-size: 1.3rem; letter-spacing: 2px; }
 }
