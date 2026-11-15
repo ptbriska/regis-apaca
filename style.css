@@ -135,13 +135,10 @@ input[readonly] {
    ========================================================= */
 .tabs-container {
     display: flex;
+    flex-wrap: wrap; /* Memaksa tombol turun ke baris bawah jika ruangnya habis */
     gap: 8px;
     margin-bottom: 16px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scrollbar-width: none; /* Firefox */
 }
-.tabs-container::-webkit-scrollbar { display: none; } /* Chrome */
 
 .tab-btn {
     background: #f1f5f9;
@@ -172,7 +169,10 @@ input[readonly] {
     display: none;
     animation: fadeSlideUp 0.4s ease forwards;
 }
-.tab-pane.active { display: block; }
+
+.tab-pane.active { 
+    display: block; 
+}
 
 @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(10px); }
