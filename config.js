@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lokasiInput = document.getElementById("lokasi");
     const submitBtn = document.getElementById("btnSubmit") || document.querySelector(".btn-submit");
     
-    // 1. Deteksi Lokasi Otomatis via IP API (Dipertahankan)
+    // 1. Deteksi Lokasi Otomatis via IP API
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
             lokasiInput.placeholder = "Ketik kota/lokasi Anda manual...";
         });
 
-    // 2. Fetch Katalog Produk (data.json) - Render Bersusun Per Kategori
+    // 2. Fetch Katalog Produk (data.json) dengan UI/UX Label Kategori Inline
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
             // Simpan referensi single modules untuk kalkulasi harga asli bundling
             data.single_modules.forEach(m => globalSingleModulesMap.set(m.id, m));
 
-            // Render semua kategori secara bersusun ke bawah tanpa tab/slider
+            // Render ke UI dengan sistem Kategori Inline di dalam satu kotak
             renderCategorizedModules(data.single_modules, "singleModulesContainer", false);
             renderCategorizedModules(data.bundling_modules, "bundlingModulesContainer", true);
             
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Gagal memuat katalog produk. Pastikan file data.json tersedia.");
         });
 
-    // 3. Tangani Submit Form (Algoritma asli dipertahankan penuh)
+    // 3. Tangani Submit Form
     document.getElementById("registrationForm").addEventListener("submit", async function(e) {
         e.preventDefault();
 
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Helper Function: Konversi File ke Base64 (Dipertahankan)
+// Helper Function: Konversi File ke Base64
 function convertFileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -165,7 +165,7 @@ function convertFileToBase64(file) {
 }
 
 /* =======================================================================
-   FUNGSI UI/UX: RENDER BERSUSUN PER KATEGORI, HARGA CORET & ANTI-DUPLICATE
+   FUNGSI UI/UX BARU: KATEGORI INLINE DI DALAM SATU KOTAK (TANPA TAB)
    ======================================================================= */
 
 function renderCategorizedModules(items, listContainerId, isBundling) {
@@ -185,17 +185,13 @@ function renderCategorizedModules(items, listContainerId, isBundling) {
     if (categories.length === 0) return;
 
     categories.forEach(kategori => {
-        // Buat Blok Kelompok per Kategori
-        const categorySection = document.createElement("div");
-        categorySection.className = "category-block";
-
-        // Judul Sub-Kategori
+        // 1. Sisipkan Judul Kategori sebagai teks pemisah saja (bukan kotak baru)
         const categoryHeader = document.createElement("div");
-        categoryHeader.className = "category-header";
-        categoryHeader.innerHTML = `<span>${kategori}</span>`;
-        categorySection.appendChild(categoryHeader);
+        categoryHeader.className = "category-inline-header";
+        categoryHeader.innerText = kategori;
+        listContainer.appendChild(categoryHeader);
 
-        // Daftar Item di dalam Kategori tersebut
+        // 2. Masukkan daftar checkbox di bawah judul tersebut
         groupedData[kategori].forEach(item => {
             const label = document.createElement("label");
             label.className = "checkbox-item";
@@ -237,12 +233,14 @@ function renderCategorizedModules(items, listContainerId, isBundling) {
                 </div>
                 <div class="item-right">${displayPrice}</div>
             `;
-            categorySection.appendChild(label);
+            listContainer.appendChild(label);
         });
-
-        listContainer.appendChild(categorySection);
     });
 }
+
+/* =======================================================================
+   KALKULASI TOTAL & ANTI-DUPLICATE (DIPERTAHANKAN UTUH)
+   ======================================================================= */
 
 function calculateTotal() {
     // === CONFLICT GUARD (Anti Double-Pay) ===
