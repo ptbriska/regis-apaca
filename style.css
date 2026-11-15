@@ -61,8 +61,12 @@ body::before {
 }
 
 .header .logo {
-    max-width: 180px;
-    margin-bottom: 20px;
+    max-width: 240px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: -25px auto -20px auto; /* Pangkas ruang kosong atas & tarik rapat ke judul bawah */
+    mix-blend-mode: multiply;      /* Larutkan background putih logo */
 }
 
 .header h2 {
