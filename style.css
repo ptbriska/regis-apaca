@@ -135,52 +135,84 @@ input[readonly] {
 }
 
 /* =========================================================
-   SISTEM TAB NAVIGASI (BARU)
+   SISTEM TAB SLIDER DENGAN NAVIGASI PANAH
    ========================================================= */
+.tabs-slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
 .tabs-container {
     display: flex;
     gap: 8px;
-    margin-bottom: 16px;
     overflow-x: auto;
-    padding-bottom: 8px;
-    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+    padding: 4px 2px;
+    scrollbar-width: none; /* Sembunyikan scrollbar bawaan */
+    -ms-overflow-style: none;
+    flex: 1;
 }
-.tabs-container::-webkit-scrollbar { display: none; } /* Chrome */
+.tabs-container::-webkit-scrollbar {
+    display: none;
+}
+
+.slider-arrow {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    color: #8b0010;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.slider-arrow:hover {
+    background: linear-gradient(135deg, #e60026 0%, #8b0010 100%);
+    color: #ffffff;
+    border-color: transparent;
+    transform: scale(1.08);
+    box-shadow: 0 6px 14px rgba(230, 0, 38, 0.3);
+}
+
+.slider-arrow:active {
+    transform: scale(0.95);
+}
 
 .tab-btn {
     background: #f1f5f9;
     border: 1.5px solid transparent;
-    padding: 8px 18px;
+    padding: 8px 16px;
     border-radius: 30px;
     cursor: pointer;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     color: #64748b;
     transition: all 0.3s ease;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .tab-btn:hover {
     background: #e2e8f0;
-    color: #334155;
+    color: #1e293b;
 }
 
 .tab-btn.active {
     background: linear-gradient(135deg, #e60026 0%, #8b0010 100%);
     color: #ffffff;
-    box-shadow: 0 6px 15px rgba(230, 0, 38, 0.3);
-    border-color: transparent;
-}
-
-.tab-pane {
-    display: none;
-    animation: fadeSlideUp 0.4s ease forwards;
-}
-.tab-pane.active { display: block; }
-
-@keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    box-shadow: 0 4px 12px rgba(230, 0, 38, 0.3);
 }
 
 /* =========================================================
