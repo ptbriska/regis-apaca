@@ -9,8 +9,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- Menambahkan logo perusahaan -->
-            <img src="logo.png" alt="Logo APACA Consulting" class="logo" onerror="this.style.display='none'">
+            <!-- Logo diperbaiki: Menghapus script onerror yang sering membuat logo hilang saat dimuat -->
+            <img src="logo.png" alt="Logo APACA Consulting" class="logo">
             <h2>Selamat datang di portal pendaftaran Psychometric & Aptitude Test System APACA Consulting</h2>
             <p>Silakan lengkapi data diri dan pilih modul tes yang Anda butuhkan.</p>
         </div>
@@ -39,6 +39,7 @@
                 <div class="form-group row">
                     <div class="col">
                         <label>Jenis Kelamin <span style="color:red">*</span></label>
+                        <!-- Diubah menjadi radio button agar lebih cepat diisi -->
                         <div class="radio-group row">
                             <label class="radio-label">
                                 <input type="radio" name="jenisKelamin" value="Laki-laki" required> Laki-laki
@@ -82,15 +83,17 @@
                 
                 <div class="form-group">
                     <label class="module-label">Pilih Single Module (Satuan)</label>
+                    <!-- Wrapper tab dihapus karena kategori sekarang diletakkan di dalam kotak checkbox -->
                     <div class="checkbox-group module-list-container" id="singleModulesContainer">
-                        <!-- Checkbox kategori dan modul satuan akan di-generate oleh JS di sini -->
+                        <!-- Checkbox di-generate oleh JS -->
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="module-label">Pilih Paket Bundling (Rekomendasi Hemat)</label>
-                    <div class="checkbox-group module-list-container" id="bundleModulesContainer">
-                        <!-- Checkbox kategori dan modul paket bundling akan di-generate oleh JS di sini -->
+                    <!-- Wrapper tab dihapus karena kategori sekarang diletakkan di dalam kotak checkbox -->
+                    <div class="checkbox-group module-list-container" id="bundlingModulesContainer">
+                        <!-- Checkbox di-generate oleh JS -->
                     </div>
                 </div>
             </div>
